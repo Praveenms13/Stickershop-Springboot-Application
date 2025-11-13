@@ -4,8 +4,8 @@ import Cookies from "js-cookie";
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   headers: {
-    Accept: "application/json",
     "Content-Type": "application/json",
+    Accept: "application/json",
   },
   timeout: 10000,
   withCredentials: true,
@@ -17,25 +17,9 @@ apiClient.interceptors.request.use(
     if (jwtToken) {
       config.headers.Authorization = `Bearer ${jwtToken}`;
     }
-    const safeMethods = ["GET", "HEAD", "OPTIONS"];
-    if (!safeMethods.includes(config.method.toUpperCase())) {
-      let csrfToken = Cookies.get("XSRF-TOKEN");
-      if (!csrfToken) {
-        await axios.get(`${import.meta.env.VITE_API_BASE_URL}/csrf-token`, {
-          withCredentials: true,
-        });
-        csrfToken = Cookies.get("XSRF-TOKEN");
-        if (!csrfToken) {
-          throw new Error("Failed to retrieve CSRF token from cookies");
-        }
-      }
-      config.headers["X-XSRF-TOKEN"] = csrfToken;
-    }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 apiClient.interceptors.response.use(
@@ -50,6 +34,6 @@ apiClient.interceptors.response.use(
     }
     return Promise.reject(error);
   }
-)
+);
 
 export default apiClient;

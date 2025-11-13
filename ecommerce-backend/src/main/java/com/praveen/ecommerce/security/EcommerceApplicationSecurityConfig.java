@@ -2,6 +2,7 @@ package com.praveen.ecommerce.security;
 
 import com.praveen.ecommerce.filter.JwtTokenValidationFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,14 +34,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class EcommerceApplicationSecurityConfig {
     private final List<String> publicPaths;
 
+    @Value("${stickershop.cors.allowed-origins}")
+    private String allowedOrigins;
+
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(
-                csrfConfig -> csrfConfig.
-                        csrfTokenRepository(
-                                CookieCsrfTokenRepository.withHttpOnlyFalse())
-                                .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler())
-                )
+        return http.csrf(csrfConfig -> csrfConfig.disable())
                 .cors(corsConfig -> corsConfig.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests((requests) -> {
                         publicPaths.forEach(path -> requests.requestMatchers(path).permitAll());
@@ -61,7 +60,8 @@ public class EcommerceApplicationSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+        System.out.println("Praveen's Log > " + allowedOrigins);
+        corsConfiguration.setAllowedOrigins(Arrays.asList(allowedOrigins.split(", ")));
         corsConfiguration.setAllowedMethods(Collections.singletonList("*"));
         corsConfiguration.setAllowedHeaders(Collections.singletonList("*"));
         corsConfiguration.setAllowCredentials(true);

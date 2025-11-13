@@ -14,7 +14,8 @@ public class PublicPathConfig {
                 "/api/v1/contacts/**",
                 "/api/v1/auth/**",
                 "/api/v1/csrf-token",
-                "/error"
+                "/error",
+                "/sticker-shop/actuator/health/**"
         );
     }
 }
