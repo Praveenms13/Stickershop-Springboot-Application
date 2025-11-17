@@ -87,7 +87,7 @@ A full-featured e-commerce web application for selling creative stickers, develo
 
 ## 📐 Architecture
 
-![System Workflow](./readme-Images/image.png)
+![System Workflow](./readme-Images/workflow.png)
 
 ## 🗄️ Database Schema
 
@@ -255,12 +255,10 @@ This project demonstrates proficiency in:
 - ✅ Database design and JPA entity relationships
 - ✅ Third-party payment gateway integration (Stripe)
 - ✅ Responsive UI design with Tailwind CSS 4
-- ✅ Cloud deployment on AWS (EC2, RDS)
-- ✅ DevOps practices (CI/CD concepts, containerization)
+- ✅ Cloud deployment on AWS (AWS Amplify, Elastic Bean Stalk, RDS, CloudFront)
 - ✅ Version control with Git and GitHub
 - ✅ API testing with Postman
 - ✅ Application monitoring with Spring Actuator
-- ✅ Performance optimization with Caffeine caching
 - ✅ Multi-profile configuration (dev, prod)
 - ✅ Comprehensive logging strategies
 - ✅ API documentation with Swagger/OpenAPI
