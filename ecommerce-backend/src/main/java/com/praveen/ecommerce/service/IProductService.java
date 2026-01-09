@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface IProductService {
     List<ProductDto> getProducts();
+    ProductDto createProduct(ProductDto productDto,org.springframework.web.multipart.MultipartFile image);
 }
